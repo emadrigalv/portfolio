@@ -2,7 +2,7 @@
 
 Interactive blueprint-style portfolio dashboard built with HTML, CSS, and JavaScript. Showcasing 3D/2D game development projects, prototypes, augmented reality features, and software architecture practices.
 
-Live Demo: https://tu-usuario.github.io/tu-repositorio/
+Live Demo: https://emadrigalv.github.io/portfolio/
 
 ## Features
 - **Blueprint Industrial UI**: Custom technical grid styling with responsive components.
