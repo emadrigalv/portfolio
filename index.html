@@ -208,8 +208,8 @@
                     category: "prototypes",
                     title: "Climbing System & Parkour Movements",
                     shortDesc: "Advanced character controller prototype featuring fluid climbing and parkour mechanics.",
-                    mediaType: "video", // Assuming video for a movement system
-                    mediaSrc: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder - replace with actual if available
+                    mediaType: "video",
+                    mediaSrc: "assets/videos/Video_PrototipoParkour.mp4", 
                     thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=Climbing+System+Prototype",
                     description: "A robust third-person character controller focusing on complex traversal mechanics. The system allows the player to dynamically detect ledges, climb, vault, and perform parkour movements seamlessly across the environment.",
                     tasks: [
@@ -229,9 +229,9 @@
                     category: "3d",
                     title: "FIFA Rivals",
                     shortDesc: "Official mobile football game developed in collaboration with Mythical Games and Bacon Games.",
-                    mediaType: "image", // Assuming image or specific promo video
-                    mediaSrc: "https://placehold.co/800x450/2a5b8f/ffffff?text=FIFA+Rivals",
-                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=FIFA+Rivals",
+                    mediaType: "video", // Assuming image or specific promo video
+                    mediaSrc: "assets/videos/video_Fifa.mp4",
+                    thumbnail: "assets/images/fifa.png",
                     description: "Contributed as a Game Developer on FIFA Rivals, an arcade-style football game featuring real-time 90-second PvP matches. Developed using Unity for mobile platforms, focusing on high-performance gameplay and integrating complex backend systems.",
                     tasks: [
                         "Collaborated in a fast-paced Agile environment to implement gameplay features.",
@@ -249,8 +249,8 @@
                     title: "CapiFood AR",
                     shortDesc: "Augmented Reality application for interactive food menus.",
                     mediaType: "video",
-                    mediaSrc: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
-                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=CapiFood+AR",
+                    mediaSrc: "assets/videos/video_capifoodAR.mp4", // Placeholder
+                    thumbnail: "assets/images/capi.png",
                     description: "An innovative AR application built with AR Foundation that allows users to view 3D models of restaurant dishes on their tables before ordering, enhancing the dining experience.",
                     tasks: [
                         "Implemented AR tracking and plane detection using AR Foundation.",
@@ -269,9 +269,9 @@
                     category: "2d",
                     title: "Shadow Realm",
                     shortDesc: "2D platformer with unique light and shadow mechanics.",
-                    mediaType: "image",
-                    mediaSrc: "https://placehold.co/800x450/2a5b8f/ffffff?text=Shadow+Realm+Gameplay",
-                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=Shadow+Realm",
+                    mediaType: "video",
+                    mediaSrc: "assets/videos/video_shadowRealm.mp4",
+                    thumbnail: "assets/images/shadow.png",
                     description: "A challenging 2D platformer where the player must navigate levels by manipulating light sources to create solid shadows to walk on and avoid dark enemies.",
                     tasks: [
                         "Designed and programmed the core 2D character controller.",
@@ -290,8 +290,8 @@
                     title: "Space Roads",
                     shortDesc: "Endless runner set in a vibrant sci-fi universe.",
                     mediaType: "video",
-                    mediaSrc: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
-                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=Space+Roads",
+                    mediaSrc: "assets/videos/video_spaceroads.mp4", // Placeholder
+                    thumbnail: "assets/images/space.png",
                     description: "A fast-paced 2D endless runner where the player controls a spaceship dodging obstacles and collecting power-ups in dynamically generated space environments.",
                     tasks: [
                         "Developed the infinite procedural generation system for level chunks.",
@@ -309,28 +309,28 @@
                     id: "the-bearsito",
                     category: "other",
                     title: "The Bearsito",
-                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=The+Bearsito",
+                    thumbnail: "assets/images/bearsito.png",
                     links: { play: "https://emadrigalv.itch.io/the-bearsito" }
                 },
                 {
                     id: "archerun",
                     category: "other",
                     title: "Archerun",
-                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=Archerun",
+                    thumbnail: "assets/images/archeorun.png",
                     links: { play: "https://emadrigalv.itch.io/archerun" }
                 },
                 {
                     id: "death-hunting",
                     category: "other",
                     title: "Death Hunting Survivor",
-                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=Death+Hunting",
+                    thumbnail: "assets/images/dhs.png",
                     links: { play: "https://emadrigalv.itch.io/death-hunting" }
                 },
                 {
                     id: "bubble-ernie",
                     category: "other",
                     title: "Bubble Ernie",
-                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=Bubble+Ernie",
+                    thumbnail: "assets/images/bubble.png",
                     links: { play: "https://emadrigalv.itch.io/bubble-ernie" }
                 }
             ]
@@ -451,15 +451,19 @@
 
             let mediaHtml = '';
             if (project.mediaType === 'video') {
-                mediaHtml = `<div class="aspect-video w-full border border-white/30 mb-6 rounded overflow-hidden">
-                                <iframe class="w-full h-full" src="${project.mediaSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                             </div>`;
-            } else {
-                mediaHtml = `<div class="aspect-video w-full border border-white/30 mb-6 rounded overflow-hidden">
-                                <img src="${project.mediaSrc}" class="w-full h-full object-cover" alt="${project.title}">
-                             </div>`;
+                if (project.mediaSrc.endsWith(".mp4") || project.mediaSrc.includes("assets/")) {
+                    mediaContainer.innerHTML = `
+                    <video controls width="100%" style="border: 1px solid rgba(255,255,255,0.4); border-radius: 4px;">
+                    <source src="${project.mediaSrc}" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+                    `;
+                } else {
+                    mediaContainer.innerHTML = `
+                    <iframe src="${project.mediaSrc}" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
+                    `;
+                }
             }
-
             let tasksHtml = '';
             if (project.tasks && project.tasks.length > 0) {
                 tasksHtml = `
