@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmanuel Madrigal Valencia| Unity Developer Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter and Space Mono (for blueprint feel) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blueprint: {
+                            dark: '#1e3a5f',
+                            DEFAULT: '#2a5b8f', // Main blueprint blue
+                            light: '#4285f4',
+                            grid: 'rgba(255, 255, 255, 0.15)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'blueprint-grid': `
+                            linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+                        `,
+                    },
+                    backgroundSize: {
+                        'blueprint-grid': '100px 100px, 100px 100px, 20px 20px, 20px 20px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #2a5b8f; /* Blueprint base blue */
+            color: #ffffff;
+        }
+        
+        /* The grid overlay */
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            background-position: center top;
+        }
+
+        /* Technical borders */
+        .tech-border {
+            border: 2px solid #ffffff;
+            position: relative;
+        }
+        .tech-border::before, .tech-border::after,
+        .tech-border .corner-tl, .tech-border .corner-br {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 2px solid #ffffff;
+        }
+        .tech-border::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .tech-border::after { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .tech-border .corner-tl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .tech-border .corner-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e3a5f; }
+        ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+        /* Filter Buttons */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background-color: #ffffff;
+            color: #2a5b8f;
+            font-weight: bold;
+        }
+
+        /* Project Card Hover */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Blueprint measurements decoration */
+        .measurement {
+            position: absolute;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen font-sans antialiased overflow-x-hidden">
+
+    <!-- Blueprint Header Decor -->
+    <div class="fixed top-0 left-0 w-full h-1 border-b border-white/30 z-50"></div>
+    <div class="fixed top-0 left-0 h-full w-1 border-r border-white/30 z-50"></div>
+    <div class="measurement top-2 left-4">X: 0.00</div>
+    <div class="measurement top-8 left-1 -rotate-90 origin-left">Y: 0.00</div>
+
+    <div class="max-w-6xl mx-auto px-4 py-8 relative z-10">
+        
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-12 tech-border p-6 bg-blueprint-dark/50 backdrop-blur-sm rounded-lg">
+            <div class="corner-tl"></div><div class="corner-br"></div>
+            <div>
+                <h1 class="text-4xl md:text-5xl font-mono font-bold tracking-tight mb-2 uppercase">Eduardo Madrigal</h1>
+                <p class="text-xl text-blue-200 font-mono flex items-center gap-2">
+                    <i class="fa-solid fa-code"></i> Unity Developer
+                </p>
+            </div>
+            <div class="mt-6 md:mt-0 flex gap-4">
+                <a href="https://linkedin.com/in/emadrigalv" target="_blank" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-blueprint transition-colors">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/emadrigalv" target="_blank" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-blueprint transition-colors">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="#" target="_blank" class="w-10 h-10 flex items-center justify-center border border-white rounded-full hover:bg-white hover:text-blueprint transition-colors" title="Linktree">
+                    <i class="fa-solid fa-link"></i>
+                </a>
+            </div>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-4 mb-12" id="nav-filters">
+            <button class="filter-btn active tech-border px-6 py-2 font-mono uppercase text-sm tracking-wider" data-filter="home">Home</button>
+            <button class="filter-btn tech-border px-6 py-2 font-mono uppercase text-sm tracking-wider" data-filter="prototypes">Prototypes</button>
+            <button class="filter-btn tech-border px-6 py-2 font-mono uppercase text-sm tracking-wider" data-filter="3d">3D</button>
+            <button class="filter-btn tech-border px-6 py-2 font-mono uppercase text-sm tracking-wider" data-filter="2d">2D</button>
+            <button class="filter-btn tech-border px-6 py-2 font-mono uppercase text-sm tracking-wider" data-filter="other">Other Projects</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="content-area" class="min-h-[500px]">
+            <!-- Content will be injected here by JS -->
+        </main>
+
+        <footer class="mt-20 border-t border-white/30 pt-6 text-center font-mono text-sm text-blue-200">
+            <p>PROJECT: PORTFOLIO // DEV: E. MADRIGAL // STATUS: ONLINE</p>
+            <p class="mt-2">© 2026 Eduardo Madrigal. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Modal for Project Details -->
+    <div id="project-modal" class="fixed inset-0 bg-blueprint-dark/90 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
+        <div class="tech-border bg-blueprint w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl p-6 md:p-8 relative">
+            <div class="corner-tl"></div><div class="corner-br"></div>
+            
+            <button id="close-modal" class="absolute top-4 right-4 text-white hover:text-red-400 text-2xl z-10 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modal-content" class="text-white">
+                <!-- Modal content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Structure for Portfolio
+        const portfolioData = {
+            home: {
+                about: `I am a passionate and dedicated Unity Developer specializing in creating immersive interactive experiences. With a strong foundation in both 2D and 3D game development, I focus on delivering clean, scalable code and engaging gameplay mechanics. My experience spans from rapid prototyping to collaborating on large-scale commercial projects like FIFA Rivals. I am constantly eager to learn new technologies and tackle complex architectural challenges in game development.`,
+                skills: [
+                    "C# & Unity3D/2D", "Gameplay Programming", "UI/UX Implementation", 
+                    "Mobile Optimization", "AR Foundation", "Git/Version Control", 
+                    "Agile/Scrum", "Physics & Collisions", "Design Patterns"
+                ],
+                contact: {
+                    email: "eduardo.madrigal@example.com", // Placeholder
+                    phone: "+57 (XXX) XXX-XXXX", // Placeholder based on location
+                    location: "Medellín, Colombia"
+                }
+            },
+            projects: [
+                // Prototypes
+                {
+                    id: "climbing-system",
+                    category: "prototypes",
+                    title: "Climbing System & Parkour Movements",
+                    shortDesc: "Advanced character controller prototype featuring fluid climbing and parkour mechanics.",
+                    mediaType: "video", // Assuming video for a movement system
+                    mediaSrc: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder - replace with actual if available
+                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=Climbing+System+Prototype",
+                    description: "A robust third-person character controller focusing on complex traversal mechanics. The system allows the player to dynamically detect ledges, climb, vault, and perform parkour movements seamlessly across the environment.",
+                    tasks: [
+                        "Developed a state-machine based character controller.",
+                        "Implemented raycasting and collision detection for ledge grabbing.",
+                        "Integrated root motion animations for smooth transitions.",
+                        "Created modular scripts for easy tuning of jump height, climb speed, etc."
+                    ],
+                    links: {
+                        github: "https://github.com/emadrigalv/climbing-system-repo",
+                        play: "#" // if itch.io exists
+                    }
+                },
+                // 3D Projects
+                {
+                    id: "fifa-rivals",
+                    category: "3d",
+                    title: "FIFA Rivals",
+                    shortDesc: "Official mobile football game developed in collaboration with Mythical Games and Bacon Games.",
+                    mediaType: "image", // Assuming image or specific promo video
+                    mediaSrc: "https://placehold.co/800x450/2a5b8f/ffffff?text=FIFA+Rivals",
+                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=FIFA+Rivals",
+                    description: "Contributed as a Game Developer on FIFA Rivals, an arcade-style football game featuring real-time 90-second PvP matches. Developed using Unity for mobile platforms, focusing on high-performance gameplay and integrating complex backend systems.",
+                    tasks: [
+                        "Collaborated in a fast-paced Agile environment to implement gameplay features.",
+                        "Optimized UI/UX components for various mobile device resolutions.",
+                        "Worked on client-side logic for multiplayer matchmaking.",
+                        "Integrated third-party SDKs and backend services."
+                    ],
+                    links: {
+                        play: "https://mythicalgames.com/games/fifa-rivals" // Official site
+                    }
+                },
+                {
+                    id: "capifood-ar",
+                    category: "3d",
+                    title: "CapiFood AR",
+                    shortDesc: "Augmented Reality application for interactive food menus.",
+                    mediaType: "video",
+                    mediaSrc: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
+                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=CapiFood+AR",
+                    description: "An innovative AR application built with AR Foundation that allows users to view 3D models of restaurant dishes on their tables before ordering, enhancing the dining experience.",
+                    tasks: [
+                        "Implemented AR tracking and plane detection using AR Foundation.",
+                        "Developed the UI for navigating the digital menu.",
+                        "Optimized 3D models and textures for mobile performance.",
+                        "Created interactions for rotating and scaling the food models."
+                    ],
+                    links: {
+                        github: "https://github.com/emadrigalv/capifood-ar",
+                        play: "#"
+                    }
+                },
+                // 2D Projects
+                {
+                    id: "shadow-realm",
+                    category: "2d",
+                    title: "Shadow Realm",
+                    shortDesc: "2D platformer with unique light and shadow mechanics.",
+                    mediaType: "image",
+                    mediaSrc: "https://placehold.co/800x450/2a5b8f/ffffff?text=Shadow+Realm+Gameplay",
+                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=Shadow+Realm",
+                    description: "A challenging 2D platformer where the player must navigate levels by manipulating light sources to create solid shadows to walk on and avoid dark enemies.",
+                    tasks: [
+                        "Designed and programmed the core 2D character controller.",
+                        "Implemented a custom 2D lighting and shadow casting system.",
+                        "Created level design and progression flow.",
+                        "Integrated sound effects and background music using Unity's audio system."
+                    ],
+                    links: {
+                        github: "https://github.com/emadrigalv/shadow-realm",
+                        play: "https://emadrigalv.itch.io/shadow-realm"
+                    }
+                },
+                {
+                    id: "space-roads",
+                    category: "2d",
+                    title: "Space Roads",
+                    shortDesc: "Endless runner set in a vibrant sci-fi universe.",
+                    mediaType: "video",
+                    mediaSrc: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder
+                    thumbnail: "https://placehold.co/600x400/1e3a5f/ffffff?text=Space+Roads",
+                    description: "A fast-paced 2D endless runner where the player controls a spaceship dodging obstacles and collecting power-ups in dynamically generated space environments.",
+                    tasks: [
+                        "Developed the infinite procedural generation system for level chunks.",
+                        "Implemented object pooling for obstacles and collectables to ensure performance.",
+                        "Created mobile touch controls and UI menus.",
+                        "Integrated a high-score saving system."
+                    ],
+                    links: {
+                        github: "https://github.com/emadrigalv/space-roads",
+                        play: "https://emadrigalv.itch.io/space-roads"
+                    }
+                },
+                // Other Projects
+                {
+                    id: "the-bearsito",
+                    category: "other",
+                    title: "The Bearsito",
+                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=The+Bearsito",
+                    links: { play: "https://emadrigalv.itch.io/the-bearsito" }
+                },
+                {
+                    id: "archerun",
+                    category: "other",
+                    title: "Archerun",
+                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=Archerun",
+                    links: { play: "https://emadrigalv.itch.io/archerun" }
+                },
+                {
+                    id: "death-hunting",
+                    category: "other",
+                    title: "Death Hunting Survivor",
+                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=Death+Hunting",
+                    links: { play: "https://emadrigalv.itch.io/death-hunting" }
+                },
+                {
+                    id: "bubble-ernie",
+                    category: "other",
+                    title: "Bubble Ernie",
+                    thumbnail: "https://placehold.co/300x300/1e3a5f/ffffff?text=Bubble+Ernie",
+                    links: { play: "https://emadrigalv.itch.io/bubble-ernie" }
+                }
+            ]
+        };
+
+        const contentArea = document.getElementById('content-area');
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        // Render Home Section
+        function renderHome() {
+            const data = portfolioData.home;
+            contentArea.innerHTML = `
+                <div class="fade-in grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 tech-border p-6 md:p-8 bg-blueprint-dark/30 rounded-xl relative">
+                        <div class="corner-tl"></div><div class="corner-br"></div>
+                        <h2 class="text-3xl font-mono font-bold mb-4 border-b border-white/20 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-user-astronaut"></i> About Me
+                        </h2>
+                        <p class="text-lg leading-relaxed mb-6 font-sans">${data.about}</p>
+                        
+                        <h3 class="text-2xl font-mono font-bold mb-4 mt-8 flex items-center gap-2">
+                            <i class="fa-solid fa-wrench"></i> Technical Skills
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            ${data.skills.map(skill => `<span class="px-3 py-1 border border-white/50 rounded-full font-mono text-sm bg-white/5 hover:bg-white hover:text-blueprint transition-colors cursor-default">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="tech-border p-6 bg-blueprint-dark/30 rounded-xl h-fit relative">
+                        <div class="corner-tl"></div><div class="corner-br"></div>
+                        <h2 class="text-2xl font-mono font-bold mb-6 border-b border-white/20 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-satellite-dish"></i> Contact Data
+                        </h2>
+                        <ul class="space-y-4 font-mono">
+                            <li class="flex items-center gap-3 group cursor-pointer" onclick="copyToClipboard('${data.contact.email}')">
+                                <i class="fa-regular fa-envelope text-xl text-blue-300 group-hover:text-white transition-colors"></i> 
+                                <span class="break-all text-sm md:text-base">${data.contact.email}</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-phone text-xl text-blue-300"></i> 
+                                <span class="text-sm md:text-base">${data.contact.phone}</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-location-dot text-xl text-blue-300"></i> 
+                                <span class="text-sm md:text-base">${data.contact.location}</span>
+                            </li>
+                        </ul>
+                        <div class="mt-8 pt-4 border-t border-white/20">
+                            <p class="text-xs text-white/50 mb-2 font-mono">QUICK LINKS</p>
+                            <div class="flex flex-col gap-2">
+                                <a href="#" class="block text-center py-2 border border-white/50 rounded hover:bg-white hover:text-blueprint transition font-mono uppercase text-sm font-bold">Download Resume</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Project Gallery
+        function renderGallery(category) {
+            const projects = portfolioData.projects.filter(p => p.category === category);
+            
+            if (projects.length === 0) {
+                contentArea.innerHTML = `<div class="fade-in text-center font-mono py-20 text-xl border border-dashed border-white/30 rounded-lg">NO DATA FOUND FOR CATEGORY: ${category.toUpperCase()}</div>`;
+                return;
+            }
+
+            let html = `<div class="fade-in grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+            
+            projects.forEach(project => {
+                if(category === 'other') {
+                    // Small gallery style for 'other'
+                    html += `
+                        <div class="project-card tech-border bg-blueprint-dark/40 rounded-lg overflow-hidden group cursor-pointer relative">
+                            <div class="corner-tl"></div><div class="corner-br"></div>
+                            <img src="${project.thumbnail}" alt="${project.title}" class="w-full aspect-square object-cover opacity-80 group-hover:opacity-100 transition-opacity mix-blend-luminosity hover:mix-blend-normal">
+                            <div class="absolute bottom-0 w-full bg-blueprint-dark/90 p-3 text-center border-t border-white/20">
+                                <h3 class="font-mono font-bold text-lg">${project.title}</h3>
+                                <div class="mt-2 flex justify-center gap-3">
+                                    ${project.links.play ? `<a href="${project.links.play}" target="_blank" class="text-sm hover:text-blue-300"><i class="fa-solid fa-gamepad"></i> Play</a>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Full detailed card style
+                    html += `
+                        <div class="project-card tech-border bg-blueprint-dark/40 flex flex-col rounded-lg overflow-hidden group relative">
+                            <div class="corner-tl"></div><div class="corner-br"></div>
+                            <div class="relative overflow-hidden aspect-video border-b border-white/20">
+                                <img src="${project.thumbnail}" alt="${project.title}" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 mix-blend-luminosity group-hover:mix-blend-normal">
+                                <div class="absolute inset-0 bg-blueprint/20 group-hover:bg-transparent transition-colors"></div>
+                                <div class="absolute top-2 right-2 text-xs font-mono bg-blueprint-dark/80 px-2 py-1 border border-white/30 rounded">
+                                    [OBJ_${project.id.substring(0,4).toUpperCase()}]
+                                </div>
+                            </div>
+                            <div class="p-5 flex-grow flex flex-col">
+                                <h3 class="font-mono font-bold text-xl mb-2">${project.title}</h3>
+                                <p class="text-sm text-blue-100 mb-4 flex-grow line-clamp-3">${project.shortDesc}</p>
+                                <button onclick="openModal('${project.id}')" class="mt-auto w-full py-2 border border-white rounded font-mono text-sm uppercase hover:bg-white hover:text-blueprint transition-colors font-bold tracking-widest">
+                                    <i class="fa-solid fa-magnifying-glass mr-2"></i> Inspect Data
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += `</div>`;
+            contentArea.innerHTML = html;
+        }
+
+        function openModal(projectId) {
+            const project = portfolioData.projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            let mediaHtml = '';
+            if (project.mediaType === 'video') {
+                mediaHtml = `<div class="aspect-video w-full border border-white/30 mb-6 rounded overflow-hidden">
+                                <iframe class="w-full h-full" src="${project.mediaSrc}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                             </div>`;
+            } else {
+                mediaHtml = `<div class="aspect-video w-full border border-white/30 mb-6 rounded overflow-hidden">
+                                <img src="${project.mediaSrc}" class="w-full h-full object-cover" alt="${project.title}">
+                             </div>`;
+            }
+
+            let tasksHtml = '';
+            if (project.tasks && project.tasks.length > 0) {
+                tasksHtml = `
+                    <h4 class="font-mono font-bold text-lg mb-2 mt-6 flex items-center gap-2 border-b border-white/20 pb-1">
+                        <i class="fa-solid fa-list-check"></i> Executed Tasks
+                    </h4>
+                    <ul class="list-none space-y-2 mb-6 font-sans">
+                        ${project.tasks.map(task => `
+                            <li class="flex items-start">
+                                <span class="mr-2 text-blue-300 font-mono">></span>
+                                <span>${task}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            }
+
+            let linksHtml = '<div class="flex flex-wrap gap-4 mt-8 pt-4 border-t border-white/20">';
+            if (project.links.github) {
+                linksHtml += `<a href="${project.links.github}" target="_blank" class="px-6 py-2 border border-white rounded font-mono hover:bg-white hover:text-blueprint transition-colors font-bold">
+                                <i class="fa-brands fa-github mr-2"></i> Repository
+                              </a>`;
+            }
+            if (project.links.play && project.links.play !== '#') {
+                linksHtml += `<a href="${project.links.play}" target="_blank" class="px-6 py-2 border border-white rounded font-mono hover:bg-white hover:text-blueprint transition-colors font-bold bg-white/10">
+                                <i class="fa-solid fa-gamepad mr-2"></i> Play / View
+                              </a>`;
+            }
+            linksHtml += '</div>';
+
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    <div class="lg:col-span-3">
+                        ${mediaHtml}
+                    </div>
+                    <div class="lg:col-span-2 flex flex-col justify-center">
+                        <div class="inline-block bg-white/10 px-2 py-1 text-xs font-mono border border-white/30 rounded w-max mb-3">CLASS: ${project.category.toUpperCase()}</div>
+                        <h2 class="text-3xl md:text-4xl font-mono font-bold mb-4 uppercase">${project.title}</h2>
+                        
+                        <h4 class="font-mono font-bold text-lg mb-2 flex items-center gap-2 border-b border-white/20 pb-1">
+                            <i class="fa-solid fa-file-lines"></i> Project Overview
+                        </h4>
+                        <p class="text-base leading-relaxed mb-4">${project.description}</p>
+                        
+                        ${tasksHtml}
+                        ${linksHtml}
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Close Modal
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            modalContent.innerHTML = ''; // Stop video playback
+        });
+
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                modalContent.innerHTML = '';
+            }
+        });
+
+        // Utilities
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                // Simple visual feedback could be added here
+            } catch (err) {
+                console.error('Failed to copy text', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Initial render
+            renderHome();
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Update active state
+                    buttons.forEach(b => b.classList.remove('active', 'bg-white', 'text-blueprint', 'font-bold'));
+                    btn.classList.add('active');
+                    
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    // Render content based on filter
+                    if (filter === 'home') {
+                        renderHome();
+                    } else {
+                        renderGallery(filter);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
