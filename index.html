@@ -406,16 +406,6 @@
             let html = `<div class="fade-in grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
             
             projects.forEach(project => {
-                // Generar botón de GitHub si existe el link
-                let githubBtn = '';
-                if (project.links && project.links.github) {
-                    githubBtn = `
-                        <a href="${project.links.github}" target="_blank" class="w-full text-center py-2 border border-white/50 rounded font-mono text-xs uppercase hover:bg-white hover:text-blueprint transition-colors font-bold mt-2">
-                            <i class="fa-brands fa-github mr-1"></i> Repository
-                        </a>
-                    `;
-                }
-        
                 if(category === 'other') {
                     html += `
                         <div class="project-card tech-border bg-blueprint-dark/40 rounded-lg overflow-hidden group cursor-pointer relative">
@@ -423,7 +413,9 @@
                             <img src="${project.thumbnail}" alt="${project.title}" class="w-full aspect-square object-cover transition-opacity">
                             <div class="absolute bottom-0 w-full bg-blueprint-dark/90 p-3 text-center border-t border-white/20">
                                 <h3 class="font-mono font-bold text-lg">${project.title}</h3>
-                                ${githubBtn}
+                                <div class="mt-2 flex justify-center gap-3">
+                                    ${project.links.play ? `<a href="${project.links.play}" target="_blank" class="text-sm hover:text-blue-300"><i class="fa-solid fa-gamepad"></i> Play</a>` : ''}
+                                </div>
                             </div>
                         </div>
                     `;
@@ -440,10 +432,9 @@
                             <div class="p-5 flex-grow flex flex-col">
                                 <h3 class="font-mono font-bold text-xl mb-2">${project.title}</h3>
                                 <p class="text-sm text-blue-100 mb-4 flex-grow line-clamp-3">${project.shortDesc}</p>
-                                <button onclick="openModal('${project.id}')" class="w-full py-2 border border-white rounded font-mono text-sm uppercase hover:bg-white hover:text-blueprint transition-colors font-bold tracking-widest">
+                                <button onclick="openModal('${project.id}')" class="mt-auto w-full py-2 border border-white rounded font-mono text-sm uppercase hover:bg-white hover:text-blueprint transition-colors font-bold tracking-widest">
                                     <i class="fa-solid fa-magnifying-glass mr-2"></i> Inspect Data
                                 </button>
-                                ${githubBtn}
                             </div>
                         </div>
                     `;
